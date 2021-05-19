@@ -20,7 +20,8 @@
     <View
         android:id="@+id/view_description"
         android:layout_width="match_parent"
-        android:layout_height="1dp"
+        android:layout_height="2dp"
+        android:background="#ececec"
         app:layout_constraintTop_toBottomOf="@+id/edit_description" />
 
     <TextView
@@ -45,7 +46,8 @@
     <View
         android:id="@+id/view_complete"
         android:layout_width="0dp"
-        android:layout_height="1dp"
+        android:layout_height="2dp"
+        android:background="#ececec"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/spinner_priority" />
@@ -64,7 +66,8 @@
     <View
         android:id="@+id/view_date"
         android:layout_width="0dp"
-        android:layout_height="1dp"
+        android:layout_height="2dp"
+        android:background="#ececec"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/check_complete" />
@@ -84,16 +87,18 @@
     <View
         android:id="@+id/view_save"
         android:layout_width="0dp"
-        android:layout_height="1dp"
+        android:layout_height="0dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/button_date" />
 
     <Button
         android:id="@+id/button_save"
-        android:layout_width="wrap_content"
+        android:layout_width="180dp"
         android:layout_height="wrap_content"
         android:text="@string/adicionar_tarefa"
+        style="@style/DefaultButton"
+        android:background="@drawable/shape_button"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent" />
