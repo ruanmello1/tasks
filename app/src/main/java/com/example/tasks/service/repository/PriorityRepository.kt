@@ -1,10 +1,8 @@
 package com.example.tasks.service.repository
 
 import android.content.Context
-import android.net.ConnectivityManager
-import android.net.NetworkCapabilities
-import android.os.Build
 import com.example.tasks.service.constants.TaskConstants
+import com.example.tasks.service.listener.APIListener
 import com.example.tasks.service.model.PriorityModel
 import com.example.tasks.service.repository.local.TaskDatabase
 import com.example.tasks.service.repository.remote.PriorityService
@@ -18,9 +16,10 @@ class PriorityRepository (val context: Context) : BaseRepository(context) {
     private val mRemote = RetrofitClient.createService(PriorityService::class.java)
     private val mPriorityDatabase = TaskDatabase.getDatabase(context).priorityDAO()
 
-    fun all() {
+    fun all(listener: APIListener<List<PriorityModel>>) {
 
         if (!isConnectionAvailable(context)) {
+            listener.onFailure("Dispositivo sem conexão. Conecte-se com à internet.")
             return
         }
 
@@ -44,6 +43,11 @@ class PriorityRepository (val context: Context) : BaseRepository(context) {
     }
 
     fun list() = mPriorityDatabase.list()
+
+    fun save(list: List<PriorityModel>) {
+        mPriorityDatabase.clear()
+        mPriorityDatabase.save(list)
+    }
 
     fun getDescription(id: Int) = mPriorityDatabase.getDescription(id)
 

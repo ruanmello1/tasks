@@ -9,6 +9,7 @@ import com.example.tasks.service.constants.TaskConstants
 import com.example.tasks.service.helper.FingerprintHelper
 import com.example.tasks.service.listener.APIListener
 import com.example.tasks.service.listener.ValidationListener
+import com.example.tasks.service.model.PriorityModel
 import com.example.tasks.service.repository.PersonRepository
 import com.example.tasks.service.repository.PriorityRepository
 import com.example.tasks.service.repository.local.SecurityPreferences
@@ -60,7 +61,15 @@ class LoginViewModel(application: Application) : AndroidViewModel(application) {
 
 
         if (!everLogged) {
-            mPriorityRepository.all()
+            mPriorityRepository.all(object : APIListener<List<PriorityModel>> {
+                override fun onSuccess(model: List<PriorityModel>) {
+                    mPriorityRepository.save(model)
+                }
+
+                override fun onFailure(str: String) {
+                }
+
+            })
         }
 
         if (FingerprintHelper.isAuthenticationAvailable(getApplication())) {

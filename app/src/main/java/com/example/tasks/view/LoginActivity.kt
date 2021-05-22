@@ -5,13 +5,11 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
-import androidx.biometric.BiometricFragment
 import androidx.biometric.BiometricPrompt
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.tasks.R
-import com.example.tasks.service.helper.FingerprintHelper
 import com.example.tasks.viewmodel.LoginViewModel
 import kotlinx.android.synthetic.main.activity_login.*
 import java.util.concurrent.Executor
@@ -27,7 +25,7 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
         mViewModel = ViewModelProvider(this).get(LoginViewModel::class.java)
 
         // Inicializa eventos
-        setListeners();
+        setListeners()
         observe()
 
         mViewModel.isAuthenticationAvailable()
@@ -55,10 +53,10 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
             })
 
         val info: BiometricPrompt.PromptInfo = BiometricPrompt.PromptInfo.Builder()
-            .setTitle("Título")
-            .setSubtitle("Subtítulo")
-            .setDescription("Descrição")
-            .setNegativeButtonText("Cancelar")
+            .setTitle("Autenticação")
+            .setSubtitle("Verificação biométrica")
+            .setDescription("Use sua digital para fazer o login")
+            .setNegativeButtonText("Agora não")
             .build()
 
         biometricPrompt.authenticate(info)
@@ -73,7 +71,6 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
         text_register.setOnClickListener(this)
     }
 
-
     /**
      * Observa ViewModel
      */
@@ -83,8 +80,7 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
                 startActivity(Intent(this, MainActivity::class.java))
                 finish()
             } else {
-                val message = it.failure()
-                Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, it.failure(), Toast.LENGTH_SHORT).show()
             }
         })
         mViewModel.fingerprint.observe(this, Observer {
